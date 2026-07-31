@@ -14,6 +14,10 @@ variable "vpc_tags" {
       default = {}
 }
 
+variable "cidr_block" {
+      default = "10.0.0.0/16"
+}
+
 variable "ig_tags" {
 
       type = map
@@ -71,4 +75,9 @@ variable "database_route_tags"{
 variable "ng_route_tags" {
       type=map
       default={}
+}
+
+variable "is_peering_connection" {
+       type = bool
+       default = false
 }

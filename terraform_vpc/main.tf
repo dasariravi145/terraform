@@ -1,5 +1,5 @@
 resource "aws_vpc" "main" {
-  cidr_block       = "10.0.0.0/16"
+  cidr_block       = var.cidr_block
   instance_tenancy = "default"
   enable_dns_hostnames = "true"
 
@@ -29,9 +29,9 @@ resource "aws_subnet" "public" {
 }
 
 resource "aws_subnet" "private" {
-  count = length(var.cidr_block_public)
+  count = length(var.cidr_block_private)
   vpc_id     = aws_vpc.main.id
-  cidr_block = var.cidr_block_public[count.index]
+  cidr_block = var.cidr_block_private[count.index]
   availability_zone = local.az_names[count.index]
  
   
@@ -146,4 +146,23 @@ resource "aws_route" "database" {
   route_table_id            = aws_route_table.database.id
   destination_cidr_block    = "0.0.0.0/0"
   nat_gateway_id  = aws_nat_gateway.main.id
+}
+
+resource "aws_route_table_association" "public" {
+  count = length(var.cidr_block_public)
+  subnet_id      = aws_subnet.public[count.index].id
+  route_table_id = aws_route_table.public.id
+}
+
+resource "aws_route_table_association" "private" {
+  count = length(var.cidr_block_private)
+  subnet_id      = aws_subnet.private[count.index].id
+  route_table_id = aws_route_table.private.id
+}
+
+
+resource "aws_route_table_association" "database" {
+  count = length(var.cidr_block_database)
+  subnet_id      = aws_subnet.database[count.index].id
+  route_table_id = aws_route_table.database.id
 }
