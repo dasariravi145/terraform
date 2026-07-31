@@ -1,6 +1,7 @@
-module {
+module "vpc" {
 
-      source = "../../"
+      source = "../terraform_vpc"
+      
       project = var.project
       environment = var.environment
 
