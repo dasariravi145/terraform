@@ -67,3 +67,8 @@ variable "database_route_tags"{
      type = map
      default = {}
 }
+
+variable "ng_route_tags" {
+      type=map
+      default={}
+}
