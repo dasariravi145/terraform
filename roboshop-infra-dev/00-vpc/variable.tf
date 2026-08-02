@@ -1,7 +1,7 @@
 variable "project" {
-    defsult ="roboshop"
+    default ="roboshop"
 }
 
 variable "environment" {
-    defsult ="dev"
+    default ="dev"
 }
