@@ -8,7 +8,7 @@ terraform {
   }
   backend "s3"{
         bucket         = "roboshop-state-aws-terraform-88s"
-        key            = "roboshop-dev"
+        key            = "roboshop-dev.tfstate"
         region         = "us-east-1"
         encrypt        = true
         use_lockfile   = true
